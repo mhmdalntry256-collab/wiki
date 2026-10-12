@@ -18,3 +18,22 @@ def entry(request, title):
         "title": title,
         "content": content
     })
+
+
+def new(request):
+    if request.method == "POST":
+        title = request.POST.get("title")
+        content = request.POST.get("content")
+        
+        if util.get_entry(title) is not None:
+            return render(request, "encyclopedia/new.html", {
+                "error": "An encyclopedia entry with this title already exists."
+            })
+        
+        util.save_entry(title, content)
+        return render(request, "encyclopedia/entry.html", {
+            "title": title,
+            "content": util.get_entry(title)
+        })
+        
+    return render(request, "encyclopedia/new.html")
