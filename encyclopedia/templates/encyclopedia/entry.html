@@ -6,4 +6,9 @@
 
 {% block body %}
     {{ content | safe }}
+    
+    <hr>
+    <div>
+        <a href="{% url 'edit' title=title %}" class="btn btn-outline-primary">Edit This Page</a>
+    </div>
 {% endblock %}
