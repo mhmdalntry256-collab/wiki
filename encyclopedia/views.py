@@ -37,3 +37,21 @@ def new(request):
         })
         
     return render(request, "encyclopedia/new.html")
+
+
+def edit(request, title):
+    if request.method == "POST":
+        content = request.POST.get("content")
+        util.save_entry(title, content)
+        return render(request, "encyclopedia/entry.html", {
+            "title": title,
+            "content": util.get_entry(title)
+        })
+    
+    content = util.get_entry(title)
+    if content is None:
+        raise Http404("Page not found")
+    return render(request, "encyclopedia/edit.html", {
+        "title": title,
+        "content": content
+    })
