@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import Http404
+import random
 
 from . import util
 
@@ -55,3 +56,9 @@ def edit(request, title):
         "title": title,
         "content": content
     })
+
+
+def random(request):
+    entries = util.list_entries()
+    random_entry = random.choice(entries)
+    return entry(request, random_entry)
